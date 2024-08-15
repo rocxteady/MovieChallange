@@ -12,6 +12,12 @@
 		7C6319152C6E1607009FCFDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C6319142C6E1607009FCFDE /* Assets.xcassets */; };
 		7C6319182C6E1607009FCFDE /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 7C6319172C6E1607009FCFDE /* Base */; };
 		7C6319232C6E1608009FCFDE /* MovieChallangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6319222C6E1608009FCFDE /* MovieChallangeTests.swift */; };
+		7C63196A2C6E30B2009FCFDE /* MockedURLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6319672C6E30B1009FCFDE /* MockedURLService.swift */; };
+		7C63196B2C6E30B2009FCFDE /* NetworkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6319682C6E30B1009FCFDE /* NetworkingTests.swift */; };
+		7C63196C2C6E30B2009FCFDE /* MockedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6319692C6E30B1009FCFDE /* MockedModel.swift */; };
+		7C6319722C6E30E8009FCFDE /* DataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C63196E2C6E30E8009FCFDE /* DataDecoder.swift */; };
+		7C6319732C6E30E8009FCFDE /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C63196F2C6E30E8009FCFDE /* NetworkClient.swift */; };
+		7C6319742C6E30E8009FCFDE /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6319702C6E30E8009FCFDE /* NetworkError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +39,12 @@
 		7C6319192C6E1607009FCFDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C63191E2C6E1608009FCFDE /* MovieChallangeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieChallangeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C6319222C6E1608009FCFDE /* MovieChallangeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieChallangeTests.swift; sourceTree = "<group>"; };
+		7C6319672C6E30B1009FCFDE /* MockedURLService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockedURLService.swift; sourceTree = "<group>"; };
+		7C6319682C6E30B1009FCFDE /* NetworkingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingTests.swift; sourceTree = "<group>"; };
+		7C6319692C6E30B1009FCFDE /* MockedModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockedModel.swift; sourceTree = "<group>"; };
+		7C63196E2C6E30E8009FCFDE /* DataDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataDecoder.swift; sourceTree = "<group>"; };
+		7C63196F2C6E30E8009FCFDE /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		7C6319702C6E30E8009FCFDE /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,9 +68,11 @@
 		7C6318FF2C6E1606009FCFDE = {
 			isa = PBXGroup;
 			children = (
+				7C6319712C6E30E8009FCFDE /* Networking */,
 				7C63190A2C6E1606009FCFDE /* MovieChallange */,
 				7C6319212C6E1608009FCFDE /* MovieChallangeTests */,
 				7C6319092C6E1606009FCFDE /* Products */,
+				7C63195C2C6E2EF8009FCFDE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,9 +100,37 @@
 		7C6319212C6E1608009FCFDE /* MovieChallangeTests */ = {
 			isa = PBXGroup;
 			children = (
+				7C6319662C6E3099009FCFDE /* Networking */,
 				7C6319222C6E1608009FCFDE /* MovieChallangeTests.swift */,
 			);
 			path = MovieChallangeTests;
+			sourceTree = "<group>";
+		};
+		7C63195C2C6E2EF8009FCFDE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7C6319662C6E3099009FCFDE /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				7C6319692C6E30B1009FCFDE /* MockedModel.swift */,
+				7C6319672C6E30B1009FCFDE /* MockedURLService.swift */,
+				7C6319682C6E30B1009FCFDE /* NetworkingTests.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		7C6319712C6E30E8009FCFDE /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				7C63196E2C6E30E8009FCFDE /* DataDecoder.swift */,
+				7C63196F2C6E30E8009FCFDE /* NetworkClient.swift */,
+				7C6319702C6E30E8009FCFDE /* NetworkError.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -107,6 +149,8 @@
 			dependencies = (
 			);
 			name = MovieChallange;
+			packageProductDependencies = (
+			);
 			productName = MovieChallange;
 			productReference = 7C6319082C6E1606009FCFDE /* MovieChallange.app */;
 			productType = "com.apple.product-type.application";
@@ -191,8 +235,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C6319722C6E30E8009FCFDE /* DataDecoder.swift in Sources */,
 				7C6319102C6E1606009FCFDE /* ViewController.swift in Sources */,
 				7C63190C2C6E1606009FCFDE /* AppDelegate.swift in Sources */,
+				7C6319732C6E30E8009FCFDE /* NetworkClient.swift in Sources */,
+				7C6319742C6E30E8009FCFDE /* NetworkError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,6 +247,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C63196C2C6E30B2009FCFDE /* MockedModel.swift in Sources */,
+				7C63196A2C6E30B2009FCFDE /* MockedURLService.swift in Sources */,
+				7C63196B2C6E30B2009FCFDE /* NetworkingTests.swift in Sources */,
 				7C6319232C6E1608009FCFDE /* MovieChallangeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
