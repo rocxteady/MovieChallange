@@ -1,5 +1,5 @@
 import XCTest
-@testable import Networking
+@testable import MovieChallange
 
 final class NetworkingTests: XCTestCase {
     private let configuration = URLSessionConfiguration.default

@@ -18,6 +18,20 @@
 		7C6319722C6E30E8009FCFDE /* DataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C63196E2C6E30E8009FCFDE /* DataDecoder.swift */; };
 		7C6319732C6E30E8009FCFDE /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C63196F2C6E30E8009FCFDE /* NetworkClient.swift */; };
 		7C6319742C6E30E8009FCFDE /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6319702C6E30E8009FCFDE /* NetworkError.swift */; };
+		7C63197A2C6E33F3009FCFDE /* OMDbResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6319792C6E33F3009FCFDE /* OMDbResponse.swift */; };
+		7C63197C2C6E37B1009FCFDE /* OMDbMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C63197B2C6E37B1009FCFDE /* OMDbMovie.swift */; };
+		7C63197F2C6E393A009FCFDE /* StatusResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C63197E2C6E393A009FCFDE /* StatusResponse.swift */; };
+		7C6319812C6E3955009FCFDE /* TotalResultsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6319802C6E3955009FCFDE /* TotalResultsResponse.swift */; };
+		7C6319842C6E39AD009FCFDE /* OMDbAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6319832C6E39AD009FCFDE /* OMDbAPIConstants.swift */; };
+		7C6319862C6E39FF009FCFDE /* OMDbSearchParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6319852C6E39FF009FCFDE /* OMDbSearchParams.swift */; };
+		7C6319892C6E3B05009FCFDE /* URL+Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6319882C6E3B05009FCFDE /* URL+Query.swift */; };
+		7C63198B2C6E3BC0009FCFDE /* ConvertableToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C63198A2C6E3BC0009FCFDE /* ConvertableToDictionary.swift */; };
+		7C63198E2C6E3C3E009FCFDE /* OMDbSearchRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C63198D2C6E3C3E009FCFDE /* OMDbSearchRepo.swift */; };
+		7C9ABB5E2C6F725D00C55EC8 /* star_search_result_first.json in Resources */ = {isa = PBXBuildFile; fileRef = 7C9ABB5D2C6F725D00C55EC8 /* star_search_result_first.json */; };
+		7C9ABB612C6F72A300C55EC8 /* OMDbSearchResponse+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABB602C6F72A300C55EC8 /* OMDbSearchResponse+Mock.swift */; };
+		7C9ABB632C6F72DC00C55EC8 /* MockError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABB622C6F72DC00C55EC8 /* MockError.swift */; };
+		7C9ABB652C6F736100C55EC8 /* OMDbSearchRepoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABB642C6F736100C55EC8 /* OMDbSearchRepoTests.swift */; };
+		7C9ABB672C6F73F300C55EC8 /* OMDbSearchRepo+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABB662C6F73F300C55EC8 /* OMDbSearchRepo+Mock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +59,20 @@
 		7C63196E2C6E30E8009FCFDE /* DataDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataDecoder.swift; sourceTree = "<group>"; };
 		7C63196F2C6E30E8009FCFDE /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		7C6319702C6E30E8009FCFDE /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		7C6319792C6E33F3009FCFDE /* OMDbResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMDbResponse.swift; sourceTree = "<group>"; };
+		7C63197B2C6E37B1009FCFDE /* OMDbMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMDbMovie.swift; sourceTree = "<group>"; };
+		7C63197E2C6E393A009FCFDE /* StatusResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusResponse.swift; sourceTree = "<group>"; };
+		7C6319802C6E3955009FCFDE /* TotalResultsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalResultsResponse.swift; sourceTree = "<group>"; };
+		7C6319832C6E39AD009FCFDE /* OMDbAPIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMDbAPIConstants.swift; sourceTree = "<group>"; };
+		7C6319852C6E39FF009FCFDE /* OMDbSearchParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMDbSearchParams.swift; sourceTree = "<group>"; };
+		7C6319882C6E3B05009FCFDE /* URL+Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Query.swift"; sourceTree = "<group>"; };
+		7C63198A2C6E3BC0009FCFDE /* ConvertableToDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertableToDictionary.swift; sourceTree = "<group>"; };
+		7C63198D2C6E3C3E009FCFDE /* OMDbSearchRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMDbSearchRepo.swift; sourceTree = "<group>"; };
+		7C9ABB5D2C6F725D00C55EC8 /* star_search_result_first.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = star_search_result_first.json; sourceTree = "<group>"; };
+		7C9ABB602C6F72A300C55EC8 /* OMDbSearchResponse+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OMDbSearchResponse+Mock.swift"; sourceTree = "<group>"; };
+		7C9ABB622C6F72DC00C55EC8 /* MockError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockError.swift; sourceTree = "<group>"; };
+		7C9ABB642C6F736100C55EC8 /* OMDbSearchRepoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMDbSearchRepoTests.swift; sourceTree = "<group>"; };
+		7C9ABB662C6F73F300C55EC8 /* OMDbSearchRepo+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OMDbSearchRepo+Mock.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +96,7 @@
 		7C6318FF2C6E1606009FCFDE = {
 			isa = PBXGroup;
 			children = (
+				7C6319752C6E3208009FCFDE /* OMDbAPI */,
 				7C6319712C6E30E8009FCFDE /* Networking */,
 				7C63190A2C6E1606009FCFDE /* MovieChallange */,
 				7C6319212C6E1608009FCFDE /* MovieChallangeTests */,
@@ -100,6 +129,9 @@
 		7C6319212C6E1608009FCFDE /* MovieChallangeTests */ = {
 			isa = PBXGroup;
 			children = (
+				7C9ABB5F2C6F728E00C55EC8 /* Mocks */,
+				7C9ABB5C2C6F725600C55EC8 /* Resources */,
+				7C9ABB5B2C6F722E00C55EC8 /* OMDbSearchRepo */,
 				7C6319662C6E3099009FCFDE /* Networking */,
 				7C6319222C6E1608009FCFDE /* MovieChallangeTests.swift */,
 			);
@@ -126,11 +158,93 @@
 		7C6319712C6E30E8009FCFDE /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				7C6319872C6E3AFC009FCFDE /* Extensions */,
 				7C63196E2C6E30E8009FCFDE /* DataDecoder.swift */,
 				7C63196F2C6E30E8009FCFDE /* NetworkClient.swift */,
 				7C6319702C6E30E8009FCFDE /* NetworkError.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		7C6319752C6E3208009FCFDE /* OMDbAPI */ = {
+			isa = PBXGroup;
+			children = (
+				7C63198C2C6E3C20009FCFDE /* SearchRepo */,
+				7C6319822C6E39A0009FCFDE /* Constants */,
+				7C6319762C6E325E009FCFDE /* Models */,
+			);
+			path = OMDbAPI;
+			sourceTree = "<group>";
+		};
+		7C6319762C6E325E009FCFDE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7C63197D2C6E3932009FCFDE /* Common */,
+				7C6319792C6E33F3009FCFDE /* OMDbResponse.swift */,
+				7C63197B2C6E37B1009FCFDE /* OMDbMovie.swift */,
+				7C6319852C6E39FF009FCFDE /* OMDbSearchParams.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7C63197D2C6E3932009FCFDE /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				7C63197E2C6E393A009FCFDE /* StatusResponse.swift */,
+				7C6319802C6E3955009FCFDE /* TotalResultsResponse.swift */,
+				7C63198A2C6E3BC0009FCFDE /* ConvertableToDictionary.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		7C6319822C6E39A0009FCFDE /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				7C6319832C6E39AD009FCFDE /* OMDbAPIConstants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		7C6319872C6E3AFC009FCFDE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7C6319882C6E3B05009FCFDE /* URL+Query.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7C63198C2C6E3C20009FCFDE /* SearchRepo */ = {
+			isa = PBXGroup;
+			children = (
+				7C63198D2C6E3C3E009FCFDE /* OMDbSearchRepo.swift */,
+			);
+			path = SearchRepo;
+			sourceTree = "<group>";
+		};
+		7C9ABB5B2C6F722E00C55EC8 /* OMDbSearchRepo */ = {
+			isa = PBXGroup;
+			children = (
+				7C9ABB642C6F736100C55EC8 /* OMDbSearchRepoTests.swift */,
+			);
+			path = OMDbSearchRepo;
+			sourceTree = "<group>";
+		};
+		7C9ABB5C2C6F725600C55EC8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7C9ABB5D2C6F725D00C55EC8 /* star_search_result_first.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7C9ABB5F2C6F728E00C55EC8 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				7C9ABB602C6F72A300C55EC8 /* OMDbSearchResponse+Mock.swift */,
+				7C9ABB622C6F72DC00C55EC8 /* MockError.swift */,
+				7C9ABB662C6F73F300C55EC8 /* OMDbSearchRepo+Mock.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,6 +339,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C9ABB5E2C6F725D00C55EC8 /* star_search_result_first.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,11 +350,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C6319812C6E3955009FCFDE /* TotalResultsResponse.swift in Sources */,
 				7C6319722C6E30E8009FCFDE /* DataDecoder.swift in Sources */,
 				7C6319102C6E1606009FCFDE /* ViewController.swift in Sources */,
 				7C63190C2C6E1606009FCFDE /* AppDelegate.swift in Sources */,
+				7C63197F2C6E393A009FCFDE /* StatusResponse.swift in Sources */,
+				7C63198E2C6E3C3E009FCFDE /* OMDbSearchRepo.swift in Sources */,
+				7C63198B2C6E3BC0009FCFDE /* ConvertableToDictionary.swift in Sources */,
 				7C6319732C6E30E8009FCFDE /* NetworkClient.swift in Sources */,
+				7C63197C2C6E37B1009FCFDE /* OMDbMovie.swift in Sources */,
 				7C6319742C6E30E8009FCFDE /* NetworkError.swift in Sources */,
+				7C63197A2C6E33F3009FCFDE /* OMDbResponse.swift in Sources */,
+				7C6319862C6E39FF009FCFDE /* OMDbSearchParams.swift in Sources */,
+				7C6319892C6E3B05009FCFDE /* URL+Query.swift in Sources */,
+				7C6319842C6E39AD009FCFDE /* OMDbAPIConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,7 +374,11 @@
 				7C63196C2C6E30B2009FCFDE /* MockedModel.swift in Sources */,
 				7C63196A2C6E30B2009FCFDE /* MockedURLService.swift in Sources */,
 				7C63196B2C6E30B2009FCFDE /* NetworkingTests.swift in Sources */,
+				7C9ABB652C6F736100C55EC8 /* OMDbSearchRepoTests.swift in Sources */,
+				7C9ABB612C6F72A300C55EC8 /* OMDbSearchResponse+Mock.swift in Sources */,
+				7C9ABB632C6F72DC00C55EC8 /* MockError.swift in Sources */,
 				7C6319232C6E1608009FCFDE /* MovieChallangeTests.swift in Sources */,
+				7C9ABB672C6F73F300C55EC8 /* OMDbSearchRepo+Mock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

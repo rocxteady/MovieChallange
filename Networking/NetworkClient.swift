@@ -31,10 +31,13 @@ extension NetworkClient {
     ///  - urlString: The URL string of the resource to fetch.
     ///  - returnType: The type to decode the data to.
     ///  - completion: The completion handler to call when the request is complete.
-    func fetch<T: Decodable>(with urlString: String, returnType: T.Type, completion: @escaping (Result<T, Error>) -> Void){
-        guard let url = URL(string: urlString) else {
+    func fetch<T: Decodable>(with urlString: String, returnType: T.Type, params: [String: Any]? = nil, completion: @escaping (Result<T, Error>) -> Void){
+        guard var url = URL(string: urlString) else {
             completion(.failure(NetworkError.urlMalformed))
             return
+        }
+        if let params {
+            url = url.withQueryParameters(params) ?? url
         }
         let task = session.dataTask(with: URLRequest(url: url)) { data, response, error in
             if let error {
