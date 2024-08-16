@@ -23,4 +23,12 @@ struct OMDbMovie: Decodable {
         case type = "Type"
         case poster = "Poster"
     }
+    
+    init(title: String, year: String, imdbID: String, poster: String, type: OMDbContenType) {
+        self.title = title
+        self.year = year
+        self.imdbID = imdbID
+        self.poster = poster
+        self.type = type
+    }
 }
