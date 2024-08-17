@@ -59,9 +59,16 @@ class MovieTableViewController: UITableViewController {
             }
         }
     }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if viewModel.movies.count == 2 || viewModel.movies.count == 4 {
+            print("zort")
+        }
         return viewModel.movies.count
     }
     
