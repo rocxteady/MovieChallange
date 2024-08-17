@@ -41,7 +41,7 @@ extension NetworkClient {
         if let params {
             url = url.withQueryParameters(params) ?? url
         }
-        task = session.dataTask(with: URLRequest(url: url)) { data, response, error in
+        task = session.dataTask(with: URLRequest(url: url)) { [weak self] data, response, error in
             if let error {
                 completion(.failure(error))
                 return
@@ -59,8 +59,12 @@ extension NetworkClient {
                 return
             }
             do {
-                let result = try JSONDecoder().decode(returnType, from: data)
-                completion(.success(result))
+                if let dataDecoder = self?.dataDecoder {
+                    let result = try dataDecoder.decode(returnType, from: data)
+                    completion(.success(result))
+                } else {
+                    completion(.failure(NetworkError.unknown))
+                }
             } catch {
                 completion(.failure(error))
             }

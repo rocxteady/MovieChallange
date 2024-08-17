@@ -9,7 +9,7 @@ import Foundation
 
 struct PreviewOMDbSearchRepo: OMDbSearchRepo {
     func fetch(params: OMDbSearchParams, completion: @escaping (Result<OMDbSearchResponse, any Error>) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             if params.page % 2 == 0 {
                 completion(.success(.preview2))
                 return

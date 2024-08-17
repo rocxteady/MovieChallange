@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "ACB6C09C-C08C-4CC7-A633-8333610FE7C7",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:MovieChallange.xcodeproj",
+          "identifier" : "7C6319072C6E1606009FCFDE",
+          "name" : "MovieChallange"
+        }
+      ]
+    },
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MovieChallange.xcodeproj",
+      "identifier" : "7C6319072C6E1606009FCFDE",
+      "name" : "MovieChallange"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:MovieChallange.xcodeproj",
+        "identifier" : "7C63191D2C6E1608009FCFDE",
+        "name" : "MovieChallangeTests"
+      }
+    }
+  ],
+  "version" : 1
+}

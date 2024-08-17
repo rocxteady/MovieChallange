@@ -92,9 +92,7 @@ extension MovieSearchViewModel {
     }
     
     func resetError() {
-        if totalCount > 0 {
-            statusSubscriber.setValue(totalCount > 0 ? .loaded : .idle)
-        }
+        statusSubscriber.setValue(totalCount > 0 ? .loaded : .idle)
     }
     
     private func handleResponse(_ response: OMDbSearchResponse) {

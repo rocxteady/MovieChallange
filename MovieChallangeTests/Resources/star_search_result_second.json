@@ -1,0 +1,20 @@
+{
+    "Search": [
+        {
+            "Title": "Star Wars: Episode IX - The Rise of Skywalker",
+            "Year": "2019",
+            "imdbID": "tt2527338",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BMDljNTQ5ODItZmQwMy00M2ExLTljOTQtZTVjNGE2NTg0NGIxXkEyXkFqcGdeQXVyODkzNTgxMDg@._V1_SX300.jpg"
+        },
+        {
+            "Title": "Star Trek Into Darkness",
+            "Year": "2013",
+            "imdbID": "tt1408101",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BMTk2NzczOTgxNF5BMl5BanBnXkFtZTcwODQ5ODczOQ@@._V1_SX300.jpg"
+        }
+    ],
+    "totalResults": "4",
+    "Response": "True"
+}
