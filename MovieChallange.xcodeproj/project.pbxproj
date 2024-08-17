@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C1E49A02C710F4900082C98 /* MovieCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1E499F2C710F4900082C98 /* MovieCellProtocol.swift */; };
 		7C1FC2812C70BBA200E868F7 /* MovieSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1FC2802C70BBA200E868F7 /* MovieSearchViewModel.swift */; };
 		7C1FC2832C70C06400E868F7 /* OMDbAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1FC2822C70C06400E868F7 /* OMDbAPI.swift */; };
 		7C1FC2862C70C17700E868F7 /* OMDbParamsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1FC2852C70C17700E868F7 /* OMDbParamsCreator.swift */; };
@@ -62,6 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7C1E499F2C710F4900082C98 /* MovieCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellProtocol.swift; sourceTree = "<group>"; };
 		7C1FC2802C70BBA200E868F7 /* MovieSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchViewModel.swift; sourceTree = "<group>"; };
 		7C1FC2822C70C06400E868F7 /* OMDbAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMDbAPI.swift; sourceTree = "<group>"; };
 		7C1FC2852C70C17700E868F7 /* OMDbParamsCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMDbParamsCreator.swift; sourceTree = "<group>"; };
@@ -127,6 +129,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C1E49A12C71152400082C98 /* Table */ = {
+			isa = PBXGroup;
+			children = (
+				7C9ABB7A2C6F9B3E00C55EC8 /* MovieTableViewController.swift */,
+				7C9ABB7C2C6F9B7800C55EC8 /* MovieTableViewCell.swift */,
+			);
+			path = Table;
+			sourceTree = "<group>";
+		};
+		7C1E49A22C71152A00082C98 /* Horizontal */ = {
+			isa = PBXGroup;
+			children = (
+				7C9ABB692C6F7BB500C55EC8 /* HorizontalMovieCollectionViewController.swift */,
+				7C9ABB6B2C6F7BD900C55EC8 /* HorizontalMovieCell.swift */,
+			);
+			path = Horizontal;
+			sourceTree = "<group>";
+		};
+		7C1E49A32C71153300082C98 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				7C1E499F2C710F4900082C98 /* MovieCellProtocol.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		7C1E49A42C71154100082C98 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7C1FC2802C70BBA200E868F7 /* MovieSearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		7C1FC28D2C70D93E00E868F7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,8 +205,6 @@
 				7C6319142C6E1607009FCFDE /* Assets.xcassets */,
 				7C6319162C6E1607009FCFDE /* LaunchScreen.storyboard */,
 				7C6319192C6E1607009FCFDE /* Info.plist */,
-				7C1FC2802C70BBA200E868F7 /* MovieSearchViewModel.swift */,
-				7C9ABB742C6F91A000C55EC8 /* MainViewController.swift */,
 			);
 			path = MovieChallange;
 			sourceTree = "<group>";
@@ -301,11 +335,12 @@
 		7C9ABB682C6F7B0E00C55EC8 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				7C9ABB692C6F7BB500C55EC8 /* HorizontalMovieCollectionViewController.swift */,
-				7C9ABB6B2C6F7BD900C55EC8 /* HorizontalMovieCell.swift */,
-				7C9ABB7A2C6F9B3E00C55EC8 /* MovieTableViewController.swift */,
-				7C9ABB7C2C6F9B7800C55EC8 /* MovieTableViewCell.swift */,
+				7C1E49A42C71154100082C98 /* ViewModel */,
+				7C1E49A32C71153300082C98 /* Common */,
+				7C1E49A22C71152A00082C98 /* Horizontal */,
+				7C1E49A12C71152400082C98 /* Table */,
 				7C1FC2922C70F41600E868F7 /* MovileDetailViewController.swift */,
+				7C9ABB742C6F91A000C55EC8 /* MainViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -459,6 +494,7 @@
 				7C1FC2832C70C06400E868F7 /* OMDbAPI.swift in Sources */,
 				7C9ABB6E2C6F7D9700C55EC8 /* ImageLoader.swift in Sources */,
 				7C1FC2862C70C17700E868F7 /* OMDbParamsCreator.swift in Sources */,
+				7C1E49A02C710F4900082C98 /* MovieCellProtocol.swift in Sources */,
 				7C63197A2C6E33F3009FCFDE /* OMDbResponse.swift in Sources */,
 				7C6319862C6E39FF009FCFDE /* OMDbSearchParams.swift in Sources */,
 				7C9ABB712C6F8C7200C55EC8 /* OMDbSearchResponse+Preview.swift in Sources */,

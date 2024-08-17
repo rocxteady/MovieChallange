@@ -8,8 +8,9 @@
 import Foundation
 
 class ValueSubscriber<T> {
+    typealias Observer = (T) -> Void
     private(set) var value: T
-    private var observers: [(T) -> Void] = []
+    private var observers: [Observer] = []
     private var lastIndex: Int = 0
     
     init(value: T) {
@@ -31,6 +32,9 @@ class ValueSubscriber<T> {
     }
     
     func unsubscribe(index: Int) {
+        defer {
+            lastIndex -= 1
+        }
         observers.remove(at: index)
     }
 }

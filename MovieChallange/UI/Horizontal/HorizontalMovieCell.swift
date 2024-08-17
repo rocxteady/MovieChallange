@@ -8,6 +8,8 @@
 import UIKit
 
 class HorizontalMovieCell: UICollectionViewCell {
+    static let width: CGFloat = 240
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
@@ -34,15 +36,7 @@ class HorizontalMovieCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        contentView.addSubview(stackView)
-        
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            stackView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -8),
-            stackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -8)
-        ])
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -53,6 +47,19 @@ class HorizontalMovieCell: UICollectionViewCell {
         super.prepareForReuse()
         movieImageView.cancelImageLoad()
         movieImageView.image = nil
+    }
+}
+
+extension HorizontalMovieCell {
+    private func setupLayout() {
+        contentView.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            stackView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -8),
+            stackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -8)
+        ])
     }
 }
 

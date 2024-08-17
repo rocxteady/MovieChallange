@@ -77,6 +77,10 @@ class MainViewController: UIViewController {
         }
     }
     
+    @objc func tableViewDidRefresh() {
+        horizontalViewModel.fetch()
+    }
+    
     deinit {
         if let statusSubscriptionIndexForTable {
             tableViewModel.statusSubscriber.unsubscribe(index: statusSubscriptionIndexForTable)

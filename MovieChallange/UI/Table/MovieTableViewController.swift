@@ -8,7 +8,7 @@
 import UIKit
 
 class MovieTableViewController: UITableViewController {
-    private let viewModel: MovieSearchViewModel
+    let viewModel: MovieSearchViewModel
     private let stringDebouncer = StringDebouncer()
     private var statusSubscriptionIndex: Int? {
         didSet {
@@ -29,9 +29,16 @@ class MovieTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        arrangeLayout()
+        setupLayout()
         subsctibeToViewModel()
-        fetch()
+        viewModel.fetch()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if let parent = parent as? MainViewController {
+            tableView.refreshControl?.addTarget(parent, action: #selector(MainViewController.tableViewDidRefresh), for: .valueChanged)
+        }
     }
     
     private func subsctibeToViewModel() {
@@ -54,9 +61,7 @@ class MovieTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return viewModel.movies.count
     }
     
@@ -73,14 +78,11 @@ class MovieTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let movie = viewModel.movies[indexPath.row]
-        if movie == viewModel.movies.last {
-            fetch(shouldReset: false)
-        }
+        viewModel.fetchIfLast(at: indexPath.row)
     }
     
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let cell = cell as? MovieTableViewCell else { return }
+        guard let cell = cell as? AsyncableImageView else { return }
         cell.cancelLoading()
     }
     
@@ -96,7 +98,7 @@ class MovieTableViewController: UITableViewController {
 }
 
 extension MovieTableViewController {
-    private func arrangeLayout() {
+    private func setupLayout() {
         view.backgroundColor = .white
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -109,17 +111,13 @@ extension MovieTableViewController {
 //MARK: API
 extension MovieTableViewController {
     @objc func refresh() {
-        fetch()
-    }
-    
-    func fetch(shouldReset: Bool = true) {
-        viewModel.fetch(shouldReset: shouldReset)
+        viewModel.fetch()
     }
 }
 
 extension MovieTableViewController: UISearchControllerDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        fetch(shouldReset: true)
+        viewModel.fetch(shouldReset: true)
     }
 }
 
@@ -127,7 +125,6 @@ extension MovieTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         stringDebouncer.debounce(text: searchText, debounceInterval: 1) { [weak self] debouncedText in
             self?.viewModel.setSearchTerm(debouncedText)
-            self?.fetch(shouldReset: true)
         }
     }
 }

@@ -57,6 +57,7 @@ class MovieSearchViewModel {
 extension MovieSearchViewModel {
     func setSearchTerm(_ term: String) {
         params.term = term
+        fetch(shouldReset: true)
     }
 }
 
@@ -80,6 +81,13 @@ extension MovieSearchViewModel {
                     self?.statusSubscriber.setValue(.failed(error))
                 }
             }
+        }
+    }
+    
+    func fetchIfLast(at index: Int) {
+        let movie = movies[index]
+        if movie == movies.last {
+            fetch(shouldReset: false)
         }
     }
     

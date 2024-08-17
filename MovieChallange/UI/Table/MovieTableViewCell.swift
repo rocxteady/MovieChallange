@@ -7,8 +7,8 @@
 
 import UIKit
 
-class MovieTableViewCell: UITableViewCell {
-    private let thumbnailImageView: AsyncImageView = {
+class MovieTableViewCell: UITableViewCell, AsyncableImageView {
+    let asyncableImageView: AsyncImageView = {
         let imageView = AsyncImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
@@ -45,42 +45,39 @@ class MovieTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        contentView.addSubview(thumbnailImageView)
-        contentView.addSubview(labelsStackView)
-        setupConstraints()
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private func setupConstraints() {
+}
+
+extension MovieTableViewCell {
+    private func setupLayout() {
+        contentView.addSubview(asyncableImageView)
+        contentView.addSubview(labelsStackView)
+
         NSLayoutConstraint.activate([
             labelsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            labelsStackView.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 8),
+            labelsStackView.leadingAnchor.constraint(equalTo: asyncableImageView.trailingAnchor, constant: 8),
             labelsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             labelsStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             
-            thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            thumbnailImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            thumbnailImageView.widthAnchor.constraint(equalToConstant: 120),
-            thumbnailImageView.heightAnchor.constraint(equalToConstant: 80),
-            thumbnailImageView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -8)
+            asyncableImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            asyncableImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            asyncableImageView.widthAnchor.constraint(equalToConstant: 120),
+            asyncableImageView.heightAnchor.constraint(equalToConstant: 80),
+            asyncableImageView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -8)
         ])
     }
-    
+}
+
+// MARK: Data
+extension MovieTableViewCell: MovieCellProtocol {
     func configure(with movie: OMDbMovie) {
         titleLabel.text = movie.title
         subtitleLabel.text = movie.year
-        if let url = URL(string: movie.poster) {
-            thumbnailImageView.loadImage(from: url)
-        } else {
-            thumbnailImageView.image = nil
-        }
-    }
-    
-    func cancelLoading() {
-        thumbnailImageView.cancelImageLoad()
+        loadImageWith(movie.poster)
     }
 }
