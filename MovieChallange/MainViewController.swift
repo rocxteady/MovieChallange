@@ -8,39 +8,113 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    let verticalVC = MovieTableViewController()
-    let horizontalVC = HorizontalMovieCollectionViewController()
+    private var statusSubscriptionIndexForTable: Int? {
+        didSet {
+            if let oldValue {
+                tableViewModel.statusSubscriber.unsubscribe(index: oldValue)
+            }
+        }
+    }
+    private var statusSubscriptionIndexForHorizontal: Int? {
+        didSet {
+            if let oldValue {
+                horizontalViewModel.statusSubscriber.unsubscribe(index: oldValue)
+            }
+        }
+    }
+
+    private lazy var tableViewModel = {
+        let viewModel = MovieSearchViewModel(defaultSearchTerm: "Star", repo: PreviewOMDbSearchRepo())
+        return viewModel
+    }()
+    
+    private lazy var horizontalViewModel = {
+        let viewModel = MovieSearchViewModel(defaultSearchTerm: "Comedy", repo: PreviewOMDbSearchRepo())
+        return viewModel
+    }()
+
+    private lazy var movieTableViewController = {
+        return MovieTableViewController(viewModel: tableViewModel)
+    }()
+    
+    private lazy var movileCollectionViewController = {
+        HorizontalMovieCollectionViewController(viewModel: horizontalViewModel)
+    }()
+    
+    private lazy var indicator = {
+        let indicator = UIActivityIndicatorView()
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        verticalVC.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(verticalVC.view)
-
-        horizontalVC.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(horizontalVC.view)
-        
-        NSLayoutConstraint.activate([
-            verticalVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            verticalVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            verticalVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            verticalVC.view.bottomAnchor.constraint(equalTo: horizontalVC.view.topAnchor),
-            
-            horizontalVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            horizontalVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            horizontalVC.view.heightAnchor.constraint(equalToConstant: 180), // Set the specific height
-            horizontalVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.delegate = movieTableViewController
+        searchController.searchBar.delegate = movieTableViewController
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        arrangeLayout()
+        subscribeToViewModels()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func subscribeToViewModels() {
+        statusSubscriptionIndexForTable = tableViewModel.statusSubscriber.subscribe { [weak self] status in
+            guard let self else { return }
+            handleStatuses(first: status, second: horizontalViewModel.statusSubscriber.value)
+        }
+        statusSubscriptionIndexForHorizontal = horizontalViewModel.statusSubscriber.subscribe { [weak self] status in
+            guard let self else { return }
+            handleStatuses(first: tableViewModel.statusSubscriber.value, second: status)
+        }
     }
-    */
+    
+    private func handleStatuses(first: SearchStatus, second: SearchStatus) {
+        if first == .loading || second == .loading {
+            indicator.startAnimating()
+        } else {
+            indicator.stopAnimating()
+        }
+    }
+    
+    deinit {
+        if let statusSubscriptionIndexForTable {
+            tableViewModel.statusSubscriber.unsubscribe(index: statusSubscriptionIndexForTable)
+        }
+        if let statusSubscriptionIndexForHorizontal {
+            horizontalViewModel.statusSubscriber.unsubscribe(index: statusSubscriptionIndexForHorizontal)
+        }
+    }
+}
 
+extension MainViewController {
+    private func arrangeLayout() {
+        view.backgroundColor = .white
+        movieTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        addChild(movieTableViewController)
+        view.addSubview(movieTableViewController.view)
+        movieTableViewController.didMove(toParent: self)
+
+        movileCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        addChild(movileCollectionViewController)
+        view.addSubview(movileCollectionViewController.view)
+        movileCollectionViewController.didMove(toParent: self)
+        
+        view.addSubview(indicator)
+
+        NSLayoutConstraint.activate([
+            movieTableViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            movieTableViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            movieTableViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            movieTableViewController.view.bottomAnchor.constraint(equalTo: movileCollectionViewController.view.topAnchor, constant: -16),
+            
+            movileCollectionViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            movileCollectionViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            movileCollectionViewController.view.heightAnchor.constraint(equalToConstant: 180), // Set the specific height
+            movileCollectionViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            indicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
 }

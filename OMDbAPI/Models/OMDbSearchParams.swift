@@ -8,8 +8,12 @@
 import Foundation
 
 struct OMDbSearchParams {
-    let term: String
-    let page: Int = 1
+    var term: String
+    var page: Int = 1
+    
+    init(term: String = "") {
+        self.term = term
+    }
 }
 
 extension OMDbSearchParams: ConvertableToDictionary {

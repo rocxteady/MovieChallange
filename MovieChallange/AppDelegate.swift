@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        OMDbAPI.configureWith(apiKey: "d09320a9")
         let viewController = MainViewController()
         let navigationViewController = UINavigationController(rootViewController: viewController)
         window = UIWindow()

@@ -12,7 +12,7 @@ enum OMDbContenType: String, Decodable {
     case series
 }
 
-struct OMDbMovie: Decodable {
+struct OMDbMovie: Decodable, Equatable {
     let title, year, imdbID, poster: String
     let type: OMDbContenType
 
@@ -32,3 +32,4 @@ struct OMDbMovie: Decodable {
         self.type = type
     }
 }
+

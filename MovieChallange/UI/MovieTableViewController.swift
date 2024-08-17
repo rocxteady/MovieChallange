@@ -8,88 +8,126 @@
 import UIKit
 
 class MovieTableViewController: UITableViewController {
-    let movies: [OMDbMovie] = .preview + .preview + .preview
-
+    private let viewModel: MovieSearchViewModel
+    private let stringDebouncer = StringDebouncer()
+    private var statusSubscriptionIndex: Int? {
+        didSet {
+            if let oldValue {
+                viewModel.statusSubscriber.unsubscribe(index: oldValue)
+            }
+        }
+    }
+    
+    init(viewModel: MovieSearchViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 44
-        tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "Cell")
+        arrangeLayout()
+        subsctibeToViewModel()
+        fetch()
+    }
+    
+    private func subsctibeToViewModel() {
+        statusSubscriptionIndex = viewModel.statusSubscriber.subscribe { [weak self] status in
+            guard let self else { return }
+            switch status {
+            case .loading:
+                tableView.refreshControl?.beginRefreshing()
+                break
+            case .failed(let error):
+                showErrorAlert(message: error.localizedDescription) {
+                    self.viewModel.resetError()
+                }
+                tableView.refreshControl?.endRefreshing()
+            default:
+                tableView.reloadData()
+                tableView.refreshControl?.endRefreshing()
+            }
+        }
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return movies.count
+        return viewModel.movies.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MovieTableViewCell.self), for: indexPath)
 
         guard let movieCell = cell as? MovieTableViewCell else {
             return cell
         }
         
-        let movie = movies[indexPath.row]
+        let movie = viewModel.movies[indexPath.row]
         movieCell.configure(with: movie)
         return movieCell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let movie = viewModel.movies[indexPath.row]
+        if movie == viewModel.movies.last {
+            fetch(shouldReset: false)
+        }
     }
     
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let cell = cell as? MovieTableViewCell else { return }
         cell.cancelLoading()
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailViewController = MovileDetailViewController(viewModel: viewModel)
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    deinit {
+        guard let statusSubscriptionIndex else { return }
+        viewModel.statusSubscriber.unsubscribe(index: statusSubscriptionIndex)
     }
-    */
+}
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+extension MovieTableViewController {
+    private func arrangeLayout() {
+        view.backgroundColor = .white
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 44
+        tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: String(describing: MovieTableViewCell.self))
     }
-    */
+}
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+//MARK: API
+extension MovieTableViewController {
+    @objc func refresh() {
+        fetch()
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func fetch(shouldReset: Bool = true) {
+        viewModel.fetch(shouldReset: shouldReset)
     }
-    */
+}
 
+extension MovieTableViewController: UISearchControllerDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        fetch(shouldReset: true)
+    }
+}
+
+extension MovieTableViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        stringDebouncer.debounce(text: searchText, debounceInterval: 1) { [weak self] debouncedText in
+            self?.viewModel.setSearchTerm(debouncedText)
+            self?.fetch(shouldReset: true)
+        }
+    }
 }

@@ -12,6 +12,7 @@ class NetworkClient {
     private lazy var session: URLSession = URLSession(configuration: configuration)
     private let configuration: URLSessionConfiguration
     private let dataDecoder: DataDecoder
+    private var task: URLSessionDataTask?
     
     /// Initializes a new NetworkClient with the given configuration.
     ///
@@ -31,7 +32,8 @@ extension NetworkClient {
     ///  - urlString: The URL string of the resource to fetch.
     ///  - returnType: The type to decode the data to.
     ///  - completion: The completion handler to call when the request is complete.
-    func fetch<T: Decodable>(with urlString: String, returnType: T.Type, params: [String: Any]? = nil, completion: @escaping (Result<T, Error>) -> Void){
+    func fetch<T: Decodable>(with urlString: String, returnType: T.Type, params: [String: Any]? = nil, completion: @escaping (Result<T, Error>) -> Void) {
+        task?.cancel()
         guard var url = URL(string: urlString) else {
             completion(.failure(NetworkError.urlMalformed))
             return
@@ -39,7 +41,7 @@ extension NetworkClient {
         if let params {
             url = url.withQueryParameters(params) ?? url
         }
-        let task = session.dataTask(with: URLRequest(url: url)) { data, response, error in
+        task = session.dataTask(with: URLRequest(url: url)) { data, response, error in
             if let error {
                 completion(.failure(error))
                 return
@@ -63,7 +65,12 @@ extension NetworkClient {
                 completion(.failure(error))
             }
         }
-        task.resume()
+        task?.resume()
+    }
+    
+    func cancel() {
+        task?.cancel()
+        task = nil
     }
 }
 

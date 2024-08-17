@@ -24,26 +24,24 @@ class HorizontalMovieCell: UICollectionViewCell {
         return imageView
     }()
     
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, movieImageView])
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.addSubview(movieImageView)
-        contentView.addSubview(titleLabel)
+        contentView.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -8)
-        ])
-        
-        let movieImageViewHeightConstraint = movieImageView.heightAnchor.constraint(equalToConstant: 0)
-        movieImageViewHeightConstraint.priority = .defaultLow
-        NSLayoutConstraint.activate([
-            movieImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            movieImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            movieImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            movieImageViewHeightConstraint
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            stackView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -8),
+            stackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -8)
         ])
     }
     
@@ -56,7 +54,10 @@ class HorizontalMovieCell: UICollectionViewCell {
         movieImageView.cancelImageLoad()
         movieImageView.image = nil
     }
-    
+}
+
+//MARK: Data
+extension HorizontalMovieCell {
     func configure(with movie: OMDbMovie) {
         titleLabel.text = movie.title
         if let url = URL(string: movie.poster) {

@@ -7,13 +7,20 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
-
 class HorizontalMovieCollectionViewController: UICollectionViewController {
-    let movies: [OMDbMovie] = .preview + .preview + .preview
-    
-    init() {
+    private let viewModel: MovieSearchViewModel
+    private var statusSubscriptionIndex: Int? {
+        didSet {
+            if let oldValue {
+                viewModel.statusSubscriber.unsubscribe(index: oldValue)
+            }
+        }
+    }
+
+    init(viewModel: MovieSearchViewModel) {
+        self.viewModel = viewModel
         let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = .init(top: 8, left: 8, bottom: 8, right: 8)
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 10
         super.init(collectionViewLayout: layout)
@@ -25,51 +32,75 @@ class HorizontalMovieCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView!.register(HorizontalMovieCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        view.backgroundColor = .white
+        self.collectionView!.register(HorizontalMovieCell.self, forCellWithReuseIdentifier: String(describing: HorizontalMovieCell.self))
+        subsctibeToViewModel()
+        fetch()
     }
 
-    // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+    private func subsctibeToViewModel() {
+        statusSubscriptionIndex = viewModel.statusSubscriber.subscribe { [weak self] status in
+            guard let self else { return }
+            switch status {
+            case .loading:
+                break
+            case .failed(let error):
+                showErrorAlert(message: error.localizedDescription) {
+                    self.viewModel.resetError()
+                }
+            default:
+                collectionView.reloadData()
+            }
+        }
     }
-
-
+    
+// MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return movies.count
+        return viewModel.movies.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HorizontalMovieCell.self), for: indexPath)
     
         guard let movieCell = cell as? HorizontalMovieCell else {
             return cell
         }
-        let movie = movies[indexPath.row]
+        let movie = viewModel.movies[indexPath.row]
         movieCell.configure(with: movie)
         return movieCell
     }
 
-    // MARK: UICollectionViewDelegate
-
+// MARK: UICollectionViewDelegate
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let movie = viewModel.movies[indexPath.row]
+        if movie == viewModel.movies.last {
+            fetch(shouldReset: false)
+        }
+    }
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? HorizontalMovieCell else {
             return
         }
         cell.cancelLoading()
     }
+    
+    deinit {
+        guard let statusSubscriptionIndex else { return }
+        viewModel.statusSubscriber.unsubscribe(index: statusSubscriptionIndex)
+    }
 }
 
+// MARK: UICollectionViewDelegateFlowLayout
 extension HorizontalMovieCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: 240, height: collectionView.bounds.size.height)
     }
 }
 
-#if IOS17_OR_LATER
-#Preview {
-    HorizontalMovieCollectionViewController()
+//MARK: API
+extension HorizontalMovieCollectionViewController {
+    func fetch(shouldReset: Bool = true) {
+        viewModel.fetch(shouldReset: shouldReset)
+    }
 }
-#endif

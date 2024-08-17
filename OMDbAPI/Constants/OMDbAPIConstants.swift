@@ -8,5 +8,5 @@
 import Foundation
 
 struct OMDbAPIConstants {
-    static let baseURLString = "http://www.omdbapi.com"
+    static let baseURLString = "https://www.omdbapi.com"
 }
