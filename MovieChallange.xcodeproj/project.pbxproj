@@ -41,6 +41,8 @@
 		7C63198B2C6E3BC0009FCFDE /* ConvertableToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C63198A2C6E3BC0009FCFDE /* ConvertableToDictionary.swift */; };
 		7C63198E2C6E3C3E009FCFDE /* OMDbSearchRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C63198D2C6E3C3E009FCFDE /* OMDbSearchRepo.swift */; };
 		7C85EF2D2C715A2200413901 /* MovieTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C85EF2C2C715A2200413901 /* MovieTableViewControllerTests.swift */; };
+		7C85EF2F2C71647200413901 /* HorizontalMovieCollectionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C85EF2E2C71647200413901 /* HorizontalMovieCollectionViewControllerTests.swift */; };
+		7C85EF332C71652000413901 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C85EF322C71652000413901 /* MainViewController.swift */; };
 		7C9ABB5E2C6F725D00C55EC8 /* star_search_result_first.json in Resources */ = {isa = PBXBuildFile; fileRef = 7C9ABB5D2C6F725D00C55EC8 /* star_search_result_first.json */; };
 		7C9ABB612C6F72A300C55EC8 /* OMDbSearchResponse+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABB602C6F72A300C55EC8 /* OMDbSearchResponse+Mock.swift */; };
 		7C9ABB632C6F72DC00C55EC8 /* MockError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABB622C6F72DC00C55EC8 /* MockError.swift */; };
@@ -51,7 +53,6 @@
 		7C9ABB6E2C6F7D9700C55EC8 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABB6D2C6F7D9700C55EC8 /* ImageLoader.swift */; };
 		7C9ABB712C6F8C7200C55EC8 /* OMDbSearchResponse+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABB702C6F8C7200C55EC8 /* OMDbSearchResponse+Preview.swift */; };
 		7C9ABB732C6F8E6D00C55EC8 /* OMDbMovie+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABB722C6F8E6D00C55EC8 /* OMDbMovie+Preview.swift */; };
-		7C9ABB752C6F91A000C55EC8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABB742C6F91A000C55EC8 /* MainViewController.swift */; };
 		7C9ABB792C6F9AE500C55EC8 /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABB782C6F9AE500C55EC8 /* AsyncImageView.swift */; };
 		7C9ABB7B2C6F9B3E00C55EC8 /* MovieTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABB7A2C6F9B3E00C55EC8 /* MovieTableViewController.swift */; };
 		7C9ABB7D2C6F9B7800C55EC8 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABB7C2C6F9B7800C55EC8 /* MovieTableViewCell.swift */; };
@@ -106,6 +107,8 @@
 		7C63198A2C6E3BC0009FCFDE /* ConvertableToDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertableToDictionary.swift; sourceTree = "<group>"; };
 		7C63198D2C6E3C3E009FCFDE /* OMDbSearchRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMDbSearchRepo.swift; sourceTree = "<group>"; };
 		7C85EF2C2C715A2200413901 /* MovieTableViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewControllerTests.swift; sourceTree = "<group>"; };
+		7C85EF2E2C71647200413901 /* HorizontalMovieCollectionViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalMovieCollectionViewControllerTests.swift; sourceTree = "<group>"; };
+		7C85EF322C71652000413901 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7C9ABB5D2C6F725D00C55EC8 /* star_search_result_first.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = star_search_result_first.json; sourceTree = "<group>"; };
 		7C9ABB602C6F72A300C55EC8 /* OMDbSearchResponse+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OMDbSearchResponse+Mock.swift"; sourceTree = "<group>"; };
 		7C9ABB622C6F72DC00C55EC8 /* MockError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockError.swift; sourceTree = "<group>"; };
@@ -116,7 +119,6 @@
 		7C9ABB6D2C6F7D9700C55EC8 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		7C9ABB702C6F8C7200C55EC8 /* OMDbSearchResponse+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OMDbSearchResponse+Preview.swift"; sourceTree = "<group>"; };
 		7C9ABB722C6F8E6D00C55EC8 /* OMDbMovie+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OMDbMovie+Preview.swift"; sourceTree = "<group>"; };
-		7C9ABB742C6F91A000C55EC8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7C9ABB782C6F9AE500C55EC8 /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		7C9ABB7A2C6F9B3E00C55EC8 /* MovieTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewController.swift; sourceTree = "<group>"; };
 		7C9ABB7C2C6F9B7800C55EC8 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 			isa = PBXGroup;
 			children = (
 				7C85EF2C2C715A2200413901 /* MovieTableViewControllerTests.swift */,
+				7C85EF2E2C71647200413901 /* HorizontalMovieCollectionViewControllerTests.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -373,7 +376,7 @@
 				7C1E49A22C71152A00082C98 /* Horizontal */,
 				7C1E49A12C71152400082C98 /* Table */,
 				7C1FC2922C70F41600E868F7 /* MovileDetailViewController.swift */,
-				7C9ABB742C6F91A000C55EC8 /* MainViewController.swift */,
+				7C85EF322C71652000413901 /* MainViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				7C1FC2832C70C06400E868F7 /* OMDbAPI.swift in Sources */,
 				7C9ABB6E2C6F7D9700C55EC8 /* ImageLoader.swift in Sources */,
 				7C1FC2862C70C17700E868F7 /* OMDbParamsCreator.swift in Sources */,
+				7C85EF332C71652000413901 /* MainViewController.swift in Sources */,
 				7C1E49A02C710F4900082C98 /* MovieCellProtocol.swift in Sources */,
 				7C63197A2C6E33F3009FCFDE /* OMDbResponse.swift in Sources */,
 				7C6319862C6E39FF009FCFDE /* OMDbSearchParams.swift in Sources */,
@@ -537,7 +541,6 @@
 				7C9ABB6C2C6F7BD900C55EC8 /* HorizontalMovieCell.swift in Sources */,
 				7C1FC2912C70E85C00E868F7 /* UIViewController+ShowError.swift in Sources */,
 				7C6319842C6E39AD009FCFDE /* OMDbAPIConstants.swift in Sources */,
-				7C9ABB752C6F91A000C55EC8 /* MainViewController.swift in Sources */,
 				7C9ABB792C6F9AE500C55EC8 /* AsyncImageView.swift in Sources */,
 				7C9ABB7D2C6F9B7800C55EC8 /* MovieTableViewCell.swift in Sources */,
 				7C1FC2812C70BBA200E868F7 /* MovieSearchViewModel.swift in Sources */,
@@ -559,6 +562,7 @@
 				7C1E49AB2C711A2800082C98 /* MovieSearchViewModelTests.swift in Sources */,
 				7C1E49A62C71176F00082C98 /* StringDebouncerTests.swift in Sources */,
 				7C1E49B42C7122FF00082C98 /* OMDbAPITests.swift in Sources */,
+				7C85EF2F2C71647200413901 /* HorizontalMovieCollectionViewControllerTests.swift in Sources */,
 				7C9ABB672C6F73F300C55EC8 /* OMDbSearchRepo+Mock.swift in Sources */,
 				7C1E49A82C71191200082C98 /* ValueSubscriberTests.swift in Sources */,
 			);
