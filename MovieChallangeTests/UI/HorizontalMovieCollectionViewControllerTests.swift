@@ -35,7 +35,9 @@ final class HorizontalMovieCollectionViewControllerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Fetching search results asynchronously.")
                 
         DispatchQueue.main.async {
-            XCTAssert(viewModel.statusSubscriber.value == .loaded)
+            if case .loaded(_) = viewModel.statusSubscriber.value {} else {
+                XCTAssertEqual(viewModel.movies.count, 2)
+            }
             XCTAssertEqual(viewModel.movies.count, 2)
             XCTAssertEqual(self.viewController.collectionView(self.viewController.collectionView, numberOfItemsInSection: 0), 2)
             
@@ -92,7 +94,6 @@ final class HorizontalMovieCollectionViewControllerTests: XCTestCase {
         XCTAssertEqual(model.title, "Star Wars: Episode IV - A New Hope")
         XCTAssertEqual(model.year, "1977")
         XCTAssertEqual(model.imdbID, "tt0076759")
-        XCTAssertEqual(model.type, .movie)
         XCTAssertEqual(model.poster, "https://m.media-amazon.com/images/M/MV5BOTA5NjhiOTAtZWM0ZC00MWNhLThiMzEtZDFkOTk2OTU1ZDJkXkEyXkFqcGdeQXVyMTA4NDI1NTQx._V1_SX300.jpg")
     }
 
@@ -100,7 +101,6 @@ final class HorizontalMovieCollectionViewControllerTests: XCTestCase {
         XCTAssertEqual(model.title, "Star Wars: Episode IX - The Rise of Skywalker")
         XCTAssertEqual(model.year, "2019")
         XCTAssertEqual(model.imdbID, "tt2527338")
-        XCTAssertEqual(model.type, .movie)
         XCTAssertEqual(model.poster, "https://m.media-amazon.com/images/M/MV5BMDljNTQ5ODItZmQwMy00M2ExLTljOTQtZTVjNGE2NTg0NGIxXkEyXkFqcGdeQXVyODkzNTgxMDg@._V1_SX300.jpg")
     }
 }

@@ -24,12 +24,12 @@ class MainViewController: UIViewController {
     }
 
     private lazy var tableViewModel = {
-        let viewModel = MovieSearchViewModel(defaultSearchTerm: "Star", repo: PreviewOMDbSearchRepo())
+        let viewModel = MovieSearchViewModel(defaultSearchTerm: "Star", repo: RemoteOMDBSearchRepo())
         return viewModel
     }()
     
     private lazy var horizontalViewModel = {
-        let viewModel = MovieSearchViewModel(defaultSearchTerm: "Comedy", repo: PreviewOMDbSearchRepo())
+        let viewModel = MovieSearchViewModel(defaultSearchTerm: "Comedy", repo: RemoteOMDBSearchRepo())
         return viewModel
     }()
 
@@ -37,7 +37,7 @@ class MainViewController: UIViewController {
         return MovieTableViewController(viewModel: tableViewModel)
     }()
     
-    private lazy var movileCollectionViewController = {
+    private lazy var movieCollectionViewController = {
         HorizontalMovieCollectionViewController(viewModel: horizontalViewModel)
     }()
     
@@ -70,7 +70,7 @@ class MainViewController: UIViewController {
     }
     
     private func handleStatuses(first: SearchStatus, second: SearchStatus) {
-        if first == .loading || second == .loading {
+        if first == .loading && second == .loading {
             indicator.startAnimating()
         } else {
             indicator.stopAnimating()
@@ -99,10 +99,10 @@ extension MainViewController {
         view.addSubview(movieTableViewController.view)
         movieTableViewController.didMove(toParent: self)
 
-        movileCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        addChild(movileCollectionViewController)
-        view.addSubview(movileCollectionViewController.view)
-        movileCollectionViewController.didMove(toParent: self)
+        movieCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        addChild(movieCollectionViewController)
+        view.addSubview(movieCollectionViewController.view)
+        movieCollectionViewController.didMove(toParent: self)
         
         view.addSubview(indicator)
 
@@ -110,12 +110,12 @@ extension MainViewController {
             movieTableViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             movieTableViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             movieTableViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            movieTableViewController.view.bottomAnchor.constraint(equalTo: movileCollectionViewController.view.topAnchor, constant: -16),
+            movieTableViewController.view.bottomAnchor.constraint(equalTo: movieCollectionViewController.view.topAnchor, constant: -16),
             
-            movileCollectionViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            movileCollectionViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            movileCollectionViewController.view.heightAnchor.constraint(equalToConstant: 180), // Set the specific height
-            movileCollectionViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            movieCollectionViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            movieCollectionViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            movieCollectionViewController.view.heightAnchor.constraint(equalToConstant: 180), // Set the specific height
+            movieCollectionViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             indicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             indicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)

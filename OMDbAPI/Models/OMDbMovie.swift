@@ -7,29 +7,21 @@
 
 import Foundation
 
-enum OMDbContenType: String, Decodable {
-    case movie
-    case series
-}
-
 struct OMDbMovie: Decodable, Equatable {
     let title, year, imdbID, poster: String
-    let type: OMDbContenType
 
     enum CodingKeys: String, CodingKey {
         case title = "Title"
         case year = "Year"
         case imdbID
-        case type = "Type"
         case poster = "Poster"
     }
     
-    init(title: String, year: String, imdbID: String, poster: String, type: OMDbContenType) {
+    init(title: String, year: String, imdbID: String, poster: String) {
         self.title = title
         self.year = year
         self.imdbID = imdbID
         self.poster = poster
-        self.type = type
     }
 }
 

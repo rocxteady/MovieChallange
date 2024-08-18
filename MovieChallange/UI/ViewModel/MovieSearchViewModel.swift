@@ -10,7 +10,7 @@ import Foundation
 enum SearchStatus {
     case idle
     case loading
-    case loaded
+    case loaded(shouldReload: Bool = true)
     case completed
     case failed(Error)
     
@@ -53,7 +53,7 @@ class MovieSearchViewModel {
     }
     
     func resetError() {
-        statusSubscriber.setValue(totalCount > 0 ? .loaded : .idle)
+        statusSubscriber.setValue(totalCount > 0 ? .loaded(shouldReload: false) : .idle)
     }
     
     func getMovie(at index: Int) -> OMDbMovie {
@@ -110,7 +110,7 @@ extension MovieSearchViewModel {
         if totalCount >= response.totalResults {
             statusSubscriber.setValue(.completed)
         } else {
-            statusSubscriber.setValue(.loaded)
+            statusSubscriber.setValue(.loaded())
         }
     }
     

@@ -48,6 +48,10 @@ class HorizontalMovieCollectionViewController: UICollectionViewController {
                 showErrorAlert(message: error.localizedDescription) {
                     self.viewModel.resetError()
                 }
+            case .loaded(let shouldReload):
+                if shouldReload {
+                    collectionView.reloadData()
+                }
             default:
                 collectionView.reloadData()
             }
@@ -83,7 +87,7 @@ class HorizontalMovieCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let movie = viewModel.getMovie(at: indexPath.item)
-        let detailViewController = MovieDetailViewController(viewModel: .init(movieId: movie.imdbID, repo: PreviewOMDbDetailRepo()))
+        let detailViewController = MovieDetailViewController(viewModel: .init(movieId: movie.imdbID, repo: RemoteOMDbDetailRepo()))
         navigationController?.pushViewController(detailViewController, animated: true)
     }
     

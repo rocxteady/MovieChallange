@@ -41,7 +41,6 @@ final class OMDbSearchRepoTests: XCTestCase {
         XCTAssertEqual(first.title, "Star Wars: Episode IV - A New Hope")
         XCTAssertEqual(first.year, "1977")
         XCTAssertEqual(first.imdbID, "tt0076759")
-        XCTAssertEqual(first.type, .movie)
         XCTAssertEqual(first.poster, "https://m.media-amazon.com/images/M/MV5BOTA5NjhiOTAtZWM0ZC00MWNhLThiMzEtZDFkOTk2OTU1ZDJkXkEyXkFqcGdeQXVyMTA4NDI1NTQx._V1_SX300.jpg")
     }
 }

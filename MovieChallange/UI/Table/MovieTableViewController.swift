@@ -53,6 +53,11 @@ class MovieTableViewController: UITableViewController {
                     self.viewModel.resetError()
                 }
                 tableView.refreshControl?.endRefreshing()
+            case .loaded(let shouldReload):
+                if shouldReload {
+                    tableView.reloadData()
+                }
+                tableView.refreshControl?.endRefreshing()
             default:
                 tableView.reloadData()
                 tableView.refreshControl?.endRefreshing()
@@ -95,7 +100,7 @@ class MovieTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movie = viewModel.getMovie(at: indexPath.row)
-        let detailViewController = MovieDetailViewController(viewModel: .init(movieId: movie.imdbID, repo: PreviewOMDbDetailRepo()))
+        let detailViewController = MovieDetailViewController(viewModel: .init(movieId: movie.imdbID, repo: RemoteOMDbDetailRepo()))
         navigationController?.pushViewController(detailViewController, animated: true)
     }
     
