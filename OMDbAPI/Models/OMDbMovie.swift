@@ -16,12 +16,5 @@ struct OMDbMovie: Decodable, Equatable {
         case imdbID
         case poster = "Poster"
     }
-    
-    init(title: String, year: String, imdbID: String, poster: String) {
-        self.title = title
-        self.year = year
-        self.imdbID = imdbID
-        self.poster = poster
-    }
 }
 

@@ -21,14 +21,6 @@ struct OMDbSearchResponse: Decodable, TotalResultsResponse {
         case totalResultsString = "totalResults"
     }
     
-    init(result: [OMDbMovie], error: Error? = nil, totalResults: Int) {
-        self.result = result
-        self.error = error
-        self.totalResults = totalResults
-        self.totalResultsString = "\(totalResults)"
-        self.errorString = error?.localizedDescription
-    }
-
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.result = try container.decodeIfPresent([OMDbMovie].self, forKey: .result) ?? []

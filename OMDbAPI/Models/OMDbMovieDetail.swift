@@ -23,17 +23,6 @@ struct OMDbMovieDetail: Decodable {
         case errorString = "Error"
     }
     
-    init(title: String, year: String, imdbID: String, plot: String, director: String, poster: String, error: Error? = nil) {
-        self.title = title
-        self.year = year
-        self.imdbID = imdbID
-        self.plot = plot
-        self.director = director
-        self.poster = poster
-        self.error = error
-        self.errorString = error?.localizedDescription
-    }
-    
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.title = try container.decodeIfPresent(String.self, forKey: .title)
