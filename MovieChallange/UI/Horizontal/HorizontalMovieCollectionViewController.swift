@@ -81,6 +81,12 @@ class HorizontalMovieCollectionViewController: UICollectionViewController {
         cell.cancelLoading()
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let movie = viewModel.getMovie(at: indexPath.item)
+        let detailViewController = MovieDetailViewController(viewModel: .init(movieId: movie.imdbID, repo: PreviewOMDbDetailRepo()))
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    
     deinit {
         guard let statusSubscriptionIndex else { return }
         viewModel.statusSubscriber.unsubscribe(index: statusSubscriptionIndex)

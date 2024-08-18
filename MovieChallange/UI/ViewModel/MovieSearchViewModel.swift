@@ -51,6 +51,14 @@ class MovieSearchViewModel {
         self.repo = repo
         self.params.term = defaultSearchTerm
     }
+    
+    func resetError() {
+        statusSubscriber.setValue(totalCount > 0 ? .loaded : .idle)
+    }
+    
+    func getMovie(at index: Int) -> OMDbMovie {
+        movies[index]
+    }
 }
 
 //MARK: Search
@@ -89,10 +97,6 @@ extension MovieSearchViewModel {
         if movie == movies.last {
             fetch(shouldReset: false)
         }
-    }
-    
-    func resetError() {
-        statusSubscriber.setValue(totalCount > 0 ? .loaded : .idle)
     }
     
     private func handleResponse(_ response: OMDbSearchResponse) {

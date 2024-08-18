@@ -79,7 +79,7 @@ class MovieTableViewController: UITableViewController {
             return cell
         }
         
-        let movie = viewModel.movies[indexPath.row]
+        let movie = viewModel.getMovie(at: indexPath.row)
         movieCell.configure(with: movie)
         return movieCell
     }
@@ -94,7 +94,8 @@ class MovieTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailViewController = MovileDetailViewController(viewModel: viewModel)
+        let movie = viewModel.getMovie(at: indexPath.row)
+        let detailViewController = MovieDetailViewController(viewModel: .init(movieId: movie.imdbID, repo: PreviewOMDbDetailRepo()))
         navigationController?.pushViewController(detailViewController, animated: true)
     }
     
