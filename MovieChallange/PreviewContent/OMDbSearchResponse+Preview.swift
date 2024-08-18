@@ -9,11 +9,11 @@ import Foundation
 
 extension OMDbSearchResponse {
     static var preview: OMDbSearchResponse {
-        .init(result: .preview, response: "True", totalResultsString: "20")
+        .init(result: .preview, error: nil, totalResults: 20)
     }
     
     static var preview2: OMDbSearchResponse {
-        .init(result: .preview2, response: "True", totalResultsString: "20")
+        .init(result: .preview2, error: nil, totalResults: 20)
     }
 }
 #endif

@@ -12,8 +12,15 @@ class MovieDetailViewController: UIViewController {
     
     private let scrollView = {
         let scrollView = UIScrollView()
+        scrollView.alwaysBounceVertical = true
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
+    }()
+    
+    private let refreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.translatesAutoresizingMaskIntoConstraints = false
+        return refreshControl
     }()
     
     private let imageView = {
@@ -94,14 +101,17 @@ class MovieDetailViewController: UIViewController {
                 indicator.startAnimating()
             case .loaded:
                 indicator.stopAnimating()
+                scrollView.refreshControl?.endRefreshing()
                 loadMovieDetail()
             case .failed(let error):
                 indicator.stopAnimating()
+                scrollView.refreshControl?.endRefreshing()
                 showErrorAlert(message: error.localizedDescription) {
                     self.viewModel.resetError()
                 }
             default:
                 indicator.stopAnimating()
+                scrollView.refreshControl?.endRefreshing()
             }
         }
     }
@@ -112,10 +122,16 @@ class MovieDetailViewController: UIViewController {
     }
 }
 
+// MARK: Data
 extension MovieDetailViewController {
+    @objc private func refresh() {
+        viewModel.fetch()
+    }
+    
     private func loadMovieDetail() {
         guard let movieDetail = viewModel.movieDetail else { return }
-        if let url = URL(string: movieDetail.poster) {
+        if let poster = movieDetail.poster,
+           let url = URL(string: poster) {
             imageView.loadImage(from: url)
         }
         titleLabel.text = movieDetail.title
@@ -130,6 +146,9 @@ extension MovieDetailViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
         scrollView.addSubview(indicator)
+        
+        scrollView.refreshControl = UIRefreshControl()
+        scrollView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),

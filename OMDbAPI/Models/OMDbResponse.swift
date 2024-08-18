@@ -7,35 +7,36 @@
 
 import Foundation
 
-struct OMDbSearchResponse: Decodable, StatusResponse, TotalResultsResponse {
+struct OMDbSearchResponse: Decodable, TotalResultsResponse {
     var result: [OMDbMovie]
-    var error: String?
-    var response: String
     var totalResults: Int
+    var error: Error?
     
+    private var errorString: String?
     private var totalResultsString: String
     
     private enum CodingKeys: String, CodingKey {
         case result = "Search"
-        case response = "Response"
-        case error = "Error"
+        case errorString = "Error"
         case totalResultsString = "totalResults"
     }
     
-    init(result: [OMDbMovie], error: String? = nil, response: String, totalResultsString: String) {
+    init(result: [OMDbMovie], error: Error? = nil, totalResults: Int) {
         self.result = result
         self.error = error
-        self.response = response
-        self.totalResultsString = totalResultsString
-        self.totalResults = Int(self.totalResultsString) ?? 0
+        self.totalResults = totalResults
+        self.totalResultsString = "\(totalResults)"
+        self.errorString = error?.localizedDescription
     }
 
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.result = try container.decodeIfPresent([OMDbMovie].self, forKey: .result) ?? []
-        self.response = try container.decode(String.self, forKey: .response)
-        self.error = try container.decodeIfPresent(String.self, forKey: .error)
+        self.errorString = try container.decodeIfPresent(String.self, forKey: .errorString)
         self.totalResultsString = try container.decodeIfPresent(String.self, forKey: .totalResultsString) ?? "0"
         self.totalResults = Int(self.totalResultsString) ?? 0
+        if let errorString {
+            error = OMDbAPIError.apiError(errorString)
+        }
     }
 }

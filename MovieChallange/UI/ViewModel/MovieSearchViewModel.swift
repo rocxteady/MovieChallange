@@ -84,7 +84,11 @@ extension MovieSearchViewModel {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
-                    self?.handleResponse(response)
+                    if let error = response.error {
+                        self?.statusSubscriber.setValue(.failed(error))
+                    } else {
+                        self?.handleResponse(response)
+                    }
                 case .failure(let error):
                     self?.statusSubscriber.setValue(.failed(error))
                 }

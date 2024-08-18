@@ -55,7 +55,7 @@ final class MovieSearchViewModelTests: XCTestCase {
     }
     
     func testFetchingFailing() throws {
-        let viewModel = MovieSearchViewModel(defaultSearchTerm: "Star", repo: MockedFailingOMDbSearchRepo(bundle: bundle))
+        let viewModel = MovieSearchViewModel(defaultSearchTerm: "Star", repo: MockedFailingOMDbSearchRepo())
         
         let expectation = XCTestExpectation(description: "Fetching search results asynchronously.")
         
@@ -63,6 +63,32 @@ final class MovieSearchViewModelTests: XCTestCase {
         
         DispatchQueue.main.async {
             if case .failed(_) = viewModel.statusSubscriber.value {
+                XCTAssert(viewModel.movies.isEmpty)
+                viewModel.resetError()
+                XCTAssertEqual(viewModel.statusSubscriber.value, .idle)
+                expectation.fulfill()
+            } else {
+                XCTFail()
+            }
+        }
+        
+        wait(for: [expectation], timeout: 0.1)
+    }
+    
+    func testFetchingWithAPIFailing() throws {
+        let viewModel = MovieSearchViewModel(defaultSearchTerm: "Star", repo: MockedAPIFailingOMDbSearchRepo(bundle: bundle))
+        
+        let expectation = XCTestExpectation(description: "Fetching search results asynchronously.")
+        
+        viewModel.fetch()
+        
+        DispatchQueue.main.async {
+            if case .failed(let error) = viewModel.statusSubscriber.value {
+                guard let error = error as? OMDbAPIError,
+                   case .apiError = error else {
+                    XCTFail(error.localizedDescription)
+                    return
+                }
                 XCTAssert(viewModel.movies.isEmpty)
                 viewModel.resetError()
                 XCTAssertEqual(viewModel.statusSubscriber.value, .idle)

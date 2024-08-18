@@ -23,11 +23,24 @@ struct MockedOMDbSearchRepo: OMDbSearchRepo {
     func cancel() {}
 }
 
-struct MockedFailingOMDbSearchRepo: OMDbSearchRepo {
+struct MockedFailingOMDbSearchRepo: OMDbSearchRepo {    
+    func fetch(params: OMDbSearchParams, completion: @escaping (Result<OMDbSearchResponse, any Error>) -> Void) {
+        completion(.failure(MockError.fileNotFound("")))
+    }
+    
+    func cancel() {}
+}
+
+struct MockedAPIFailingOMDbSearchRepo: OMDbSearchRepo {
     let bundle: Bundle
     
     func fetch(params: OMDbSearchParams, completion: @escaping (Result<OMDbSearchResponse, any Error>) -> Void) {
-        completion(.failure(MockError.fileNotFound("")))
+        do {
+            let response = try OMDbSearchResponse.errorData(for: bundle, for: params.page)
+            completion(.success(response))
+        } catch {
+            completion(.failure(error))
+        }
     }
     
     func cancel() {}

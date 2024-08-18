@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol StatusResponse {
-    var response: String { get }
-    var error: String? { get }
-}
+//protocol StatusResponse {
+//    var response: String { get }
+//    var error: String? { get }
+//}
 
-extension StatusResponse {
-    var isSuccess: Bool {
-        response == "True"
-    }
-}
+//extension StatusResponse {
+//    var isSuccess: Bool {
+//        response == "True"
+//    }
+//}

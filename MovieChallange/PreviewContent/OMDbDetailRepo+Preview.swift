@@ -8,7 +8,7 @@
 import Foundation
 
 struct PreviewOMDbDetailRepo: OMDbDetailRepo {
-    func fetch(movieId: String, completion: @escaping (Result<OMDbMovieDetail, any Error>) -> Void) {
+    func fetch(params: OMDbDetailParams, completion: @escaping (Result<OMDbMovieDetail, any Error>) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             completion(.success(.preview))
         }

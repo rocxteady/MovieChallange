@@ -48,16 +48,20 @@ class MovieDetailViewModel {
 
 //MARK: API
 extension MovieDetailViewModel {
-    func fetch(shouldReset: Bool = true) {
+    func fetch() {
         guard statusSubscriber.value.canLoad else { return }
         
         statusSubscriber.setValue(.loading)
         
-        repo.fetch(movieId: movieId) { [weak self] result in
+        repo.fetch(params: .init(id: movieId, plot: .full)) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
-                    self?.handleResponse(response)
+                    if let error = response.error {
+                        self?.statusSubscriber.setValue(.failed(error))
+                    } else {
+                        self?.handleResponse(response)
+                    }
                 case .failure(let error):
                     self?.statusSubscriber.setValue(.failed(error))
                 }

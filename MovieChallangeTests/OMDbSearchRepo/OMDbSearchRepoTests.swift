@@ -32,7 +32,7 @@ final class OMDbSearchRepoTests: XCTestCase {
     }
     
     private func testModel(_ model: OMDbSearchResponse) {
-        XCTAssertTrue(model.isSuccess)
+        XCTAssertNil(model.error)
         XCTAssertEqual(model.totalResults, 4)
         XCTAssertEqual(model.result.count, 2)
         

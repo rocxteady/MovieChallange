@@ -67,7 +67,7 @@ final class HorizontalMovieCollectionViewControllerTests: XCTestCase {
     }
     
     func testFetchingFailing() throws {
-        let viewModel = MovieSearchViewModel(defaultSearchTerm: "Star", repo: MockedFailingOMDbSearchRepo(bundle: bundle))
+        let viewModel = MovieSearchViewModel(defaultSearchTerm: "Star", repo: MockedFailingOMDbSearchRepo())
         createViewController(with: viewModel)
 
         let expectation = XCTestExpectation(description: "Fetching search results asynchronously.")

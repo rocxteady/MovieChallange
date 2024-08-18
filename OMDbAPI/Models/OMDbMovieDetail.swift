@@ -7,25 +7,25 @@
 
 import Foundation
 
-struct OMDbMovieDetail: Decodable, StatusResponse {
-    let title, year, imdbID, plot, director, poster: String
-    let type: OMDbContenType
-    let response: String
-    let error: String?
+struct OMDbMovieDetail: Decodable {
+    let title, year, imdbID, plot, director, poster: String?
+    let type: OMDbContenType?
+    var error: Error?
     
+    private var errorString: String?
+
     enum CodingKeys: String, CodingKey {
         case title = "Title"
         case year = "Year"
         case imdbID
         case type = "Type"
         case poster = "Poster"
-        case plot
-        case director
-        case response = "Response"
-        case error = "Error"
+        case plot = "Plot"
+        case director = "Director"
+        case errorString = "Error"
     }
     
-    init(title: String, year: String, imdbID: String, plot: String, director: String, poster: String, type: OMDbContenType, response: String = "True", error: String? = nil) {
+    init(title: String, year: String, imdbID: String, plot: String, director: String, poster: String, type: OMDbContenType, error: Error? = nil) {
         self.title = title
         self.year = year
         self.imdbID = imdbID
@@ -33,8 +33,23 @@ struct OMDbMovieDetail: Decodable, StatusResponse {
         self.director = director
         self.poster = poster
         self.type = type
-        self.response = response
         self.error = error
+        self.errorString = error?.localizedDescription
+    }
+    
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.title = try container.decodeIfPresent(String.self, forKey: .title)
+        self.year = try container.decodeIfPresent(String.self, forKey: .year)
+        self.imdbID = try container.decodeIfPresent(String.self, forKey: .imdbID)
+        self.type = try container.decodeIfPresent(OMDbContenType.self, forKey: .type)
+        self.poster = try container.decodeIfPresent(String.self, forKey: .poster)
+        self.plot = try container.decodeIfPresent(String.self, forKey: .plot)
+        self.director = try container.decodeIfPresent(String.self, forKey: .director)
+        self.errorString = try container.decodeIfPresent(String.self, forKey: .errorString)
+        if let errorString {
+            error = OMDbAPIError.apiError(errorString)
+        }
     }
 }
 

@@ -18,5 +18,14 @@ extension OMDbSearchResponse {
         let response = try JSONDecoder().decode(OMDbSearchResponse.self, from: data)
         return response
     }
+    
+    static func errorData(for bundle: Bundle, for page: Int) throws -> OMDbSearchResponse {
+        guard let pathURL = bundle.url(forResource: "error", withExtension: "json") else {
+            throw MockError.fileNotFound("error.json")
+        }
+        let data = try Data(contentsOf: pathURL)
+        let response = try JSONDecoder().decode(OMDbSearchResponse.self, from: data)
+        return response
+    }
 }
 
