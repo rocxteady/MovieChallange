@@ -33,6 +33,13 @@ final class MovieDetailViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: 0.1)
     }
     
+    func testFetchingWhileLoading() throws {
+        let viewModel = MovieDetailViewModel(movieId: "0", repo: MockedOMDbDetailRepo(bundle: bundle))
+
+        viewModel.fetch()
+        XCTAssertFalse(viewModel.statusSubscriber.value.canLoad)
+    }
+    
     func testFetchingFailing() throws {
         let viewModel = MovieDetailViewModel(movieId: "0", repo: MockedFailingOMDbDetailRepo())
 

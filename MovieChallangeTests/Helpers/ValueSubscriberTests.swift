@@ -20,6 +20,28 @@ final class ValueSubscriberTests: XCTestCase {
             XCTAssertEqual(value, "Value")
         }
     }
+    
+    func testUnsubscribe() throws {
+        XCTAssertEqual(valueSubsriber.value, "Test")
+        valueSubsriber.setValue("Value")
+        
+        var isSubscribed: Bool = true
+        
+        subsriptionIndex = valueSubsriber.subscribe { value in
+            if isSubscribed {
+                XCTAssertEqual(value, "Value")
+            } else {
+                XCTAssertNotEqual(value, "Value2")
+            }
+        }
+        if let subsriptionIndex {
+            valueSubsriber.unsubscribe(index: subsriptionIndex)
+            isSubscribed = false
+            valueSubsriber.setValue("Value2")
+        } else {
+            XCTFail()
+        }
+    }
 
     deinit {
         guard let subsriptionIndex else { return }

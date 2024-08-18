@@ -57,6 +57,7 @@ final class MovieDetailViewControllerTests: XCTestCase {
         DispatchQueue.main.async {
             if case .failed(_) = viewModel.statusSubscriber.value {
                 XCTAssertNil(viewModel.movieDetail)
+                XCTAssertTrue(self.viewController.presentedViewController?.isKind(of: UIAlertController.self) ?? false)
                 viewModel.resetError()
                 XCTAssertEqual(viewModel.statusSubscriber.value, .idle)
                 expectation.fulfill()

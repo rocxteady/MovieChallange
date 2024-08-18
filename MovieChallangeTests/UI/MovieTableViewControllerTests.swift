@@ -88,6 +88,35 @@ final class MovieTableViewControllerTests: XCTestCase {
         wait(for: [expectation], timeout: 0.1)
     }
     
+    func testFetchingWithAPIFailing() throws {
+        let viewModel = MovieSearchViewModel(defaultSearchTerm: "Star", repo: MockedAPIFailingOMDbSearchRepo(bundle: bundle))
+        createViewController(with: viewModel)
+
+        let expectation = XCTestExpectation(description: "Fetching search results asynchronously.")
+        
+        viewModel.fetch()
+        
+        DispatchQueue.main.async {
+            if case .failed(let error) = viewModel.statusSubscriber.value {
+                guard let error = error as? OMDbAPIError,
+                   case .apiError = error else {
+                    XCTFail(error.localizedDescription)
+                    return
+                }
+                XCTAssert(viewModel.movies.isEmpty)
+                XCTAssertEqual(self.viewController.tableView(self.viewController.tableView, numberOfRowsInSection: 0), 0)
+                XCTAssertTrue(self.viewController.presentedViewController?.isKind(of: UIAlertController.self) ?? false)
+                viewModel.resetError()
+                XCTAssertEqual(viewModel.statusSubscriber.value, .idle)
+                expectation.fulfill()
+            } else {
+                XCTFail()
+            }
+        }
+        
+        wait(for: [expectation], timeout: 0.1)
+    }
+    
     private func testFirstModel(_ model: OMDbMovie) {
         XCTAssertEqual(model.title, "Star Wars: Episode IV - A New Hope")
         XCTAssertEqual(model.year, "1977")

@@ -34,7 +34,7 @@ final class NetworkingTests: XCTestCase {
 
         let expectation = XCTestExpectation(description: "Fetching asynchronously.")
         
-        networkClient.fetch(with: "http://www.example.com", returnType: MockedModel.self) { result in
+        networkClient.fetch(with: "http://www.example.com", returnType: MockedModel.self, params: ["key": "value"]) { result in
             switch result {
             case .success(let response):
                 XCTAssertEqual(response.title, "Title Example", "Response data don't match the example data!")

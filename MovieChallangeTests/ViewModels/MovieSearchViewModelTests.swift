@@ -32,6 +32,13 @@ final class MovieSearchViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: 0.1)
     }
     
+    func testFetchingWhileLoading() throws {
+        let viewModel = MovieSearchViewModel(defaultSearchTerm: "Star", repo: MockedOMDbSearchRepo(bundle: bundle))
+                
+        viewModel.setSearchTerm("Star Wars")
+        XCTAssertFalse(viewModel.statusSubscriber.value.canLoad)
+    }
+    
     func testFetchingWithPagination() throws {
         let viewModel = MovieSearchViewModel(defaultSearchTerm: "Star", repo: MockedOMDbSearchRepo(bundle: bundle))
         
