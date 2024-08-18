@@ -54,6 +54,7 @@ class MainViewController: UIViewController {
         searchController.searchBar.delegate = movieTableViewController
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+        title = "MovieChallange"
         arrangeLayout()
         subscribeToViewModels()
     }
