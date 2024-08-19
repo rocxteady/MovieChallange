@@ -11,21 +11,21 @@ class AsyncImageView: UIImageView {
     private var imageLoader: ImageLoader?
     private var currentURL: URL?
 
-    func loadImage(from url: URL, placeholder: UIImage? = nil) {
+    func loadImage(from url: URL, placeholder: UIImage? = .movieclapper) {
         imageLoader?.cancel()
 
         image = placeholder
         currentURL = url
 
         imageLoader = .init()
-        imageLoader?.fetchImage(from: url, completion: { result in
-            switch result {
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .success(let image):
-                if url == self.currentURL {
-                    DispatchQueue.main.async {
-                        self.image = image
+        imageLoader?.fetchImage(from: url, completion: { [weak self] result in
+            if url == self?.currentURL {
+                DispatchQueue.main.async {
+                    switch result {
+                    case .failure(let error):
+                        self?.image = placeholder
+                    case .success(let image):
+                        self?.image = image
                     }
                 }
             }

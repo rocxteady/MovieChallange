@@ -117,7 +117,6 @@ extension MovieSearchViewModel {
     private func reset() {
         repo.cancel()
         movies = []
-        params.term = defaultSearchTerm
         params.page = 1
         totalCount = 0
         statusSubscriber.setValue(.idle)

@@ -33,6 +33,11 @@ final class ImageLoader {
         }
         
         task = Self.session.dataTask(with: URLRequest(url: url)) { data, response, error in
+            if let error = error as? URLError,
+                error.code == .cancelled {
+                completion(.success(nil))
+                return
+            }
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 completion(.failure(URLError(.badServerResponse)))
                 return
