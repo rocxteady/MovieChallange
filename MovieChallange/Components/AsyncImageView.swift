@@ -22,7 +22,7 @@ class AsyncImageView: UIImageView {
             if url == self?.currentURL {
                 DispatchQueue.main.async {
                     switch result {
-                    case .failure(let error):
+                    case .failure:
                         self?.image = placeholder
                     case .success(let image):
                         self?.image = image
